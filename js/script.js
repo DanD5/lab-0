@@ -175,7 +175,6 @@ document.getElementById("startButton").addEventListener('click', () => {
     if (buttonCount >= 3 && buttonCount <= 7) {
         const game = new Game(buttonCount);
         game.startGame(); // Start the game
-        document.getElementById("messageLabel").innerText = MESSAGES.validation;
     } else {
         alert(MESSAGES.validation); // Validate input
     }
