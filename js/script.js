@@ -61,7 +61,7 @@ class Game {
         const startX = (window.innerWidth - rowWidth) / 2; // Center the row horizontally
 
         for (let i = 0; i < this.buttonCount; i++) {
-            const color = HelperFunctions.getRandomColor(); // Generate a unique random color
+            const color = HelperFunctions.getColor();
             const button = new Button(i + 1, color, this.buttonWidth, this.buttonHeight);
             this.buttons.push(button); // Add button to the array
             this.correctOrder.push(button.id); // Add button ID to the correct order array
@@ -152,16 +152,12 @@ class Game {
 
 // Helper Functions Class: Contains utility methods for randomization
 class HelperFunctions {
-    static usedColors = new Set(); // Keep track of used colors to avoid duplicates
+    static colorPool = ["#FF5733", "#33FF57", "#3357FF", "#FF33A6", "#A633FF", "#33FFF2", "#FFD633"]; // Predefined colors
+    static currentIndex = 0; // Tracks the current color index
 
-    // Generates a unique random color
-    static getRandomColor() {
-        const letters = "0123456789ABCDEF";
-        let color;
-        do {
-            color = "#" + Array.from({ length: 6 }, () => letters[Math.floor(Math.random() * 16)]).join("");
-        } while (this.usedColors.has(color)); // Ensure color is unique
-        this.usedColors.add(color); // Mark color as used
+    static getColor() {
+        const color = this.colorPool[this.currentIndex]; // Get the current color
+        this.currentIndex = (this.currentIndex + 1) % this.colorPool.length; // Move to the next color, wrap around if needed
         return color;
     }
 
